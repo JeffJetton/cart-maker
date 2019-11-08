@@ -32,9 +32,8 @@ file_name = 'rainbows.bin'
 # The "reset vector" is the address of where we want code execution to begin.
 # We'll make it the first byte of the file, from the point of view of the
 # Atari's internal addressing scheme, which "sees" the ROM in several mirrored
-# mirrored address ranges. Here, we'll think of the ROM as living in the
-# top-most mirrored range (0xF800-0xFFFF for 2k carts and 0xF000-0xFFFF
-# for 4k carts)
+# address ranges. Here, we'll think of the ROM as living in the top-most
+# mirrored range (0xF800-0xFFFF for 2k carts and 0xF000-0xFFFF for 4k)
 reset_vector = 0xFFFF - rom_size + 1
 
 
@@ -178,7 +177,7 @@ rom = rom + bytearray([pad_byte] * num_pad_bytes)
 
 # Poke the reset vector into the 4th-highest and 3rd-highest bytes, where the
 # 6502 microprocessor family is designed to look for it on start-up
-rom[rom_size - 5] = lsb(reset_vector)
+rom[rom_size - 4] = lsb(reset_vector)
 rom[rom_size - 3] = msb(reset_vector)
 
 # Output the binary
